@@ -1,0 +1,21 @@
+{
+    "name": "nfservice/plugboleto",
+    "description": "Biblioteca para comunicaçao com a API de boletos da Tecnospeed",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Diego Almeida",
+            "email": "diego.feres82@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "NFService\\PlugBoleto\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "nfservice/laravel-helpers": "dev-master"
+    }
+}
