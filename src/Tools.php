@@ -730,7 +730,7 @@ class Tools
      * Imprime os boletos de um cedente na tecnospeed
      *
      * @access public
-     * @return array
+     * @return string
      */
     public function imprimeBoletos(array $dados, array $params = [])
     {
@@ -952,14 +952,14 @@ class Tools
     private function payed($documento)
     {
         /**Caso o banco do boleto seja Itau, o calculo do juros é feito sob o Total pago pelo Sacado menos o Total do Titulo */
-        $juros = (float)formatValueToFloat($documento->PagamentoValorPago) - (float)formatValueToFloat($documento->TituloValor);
+        $juros = (float)formatStringToFloat($documento->PagamentoValorPago) - (float)formatStringToFloat($documento->TituloValor);
         return [
             'action' => 'payed',
             'data' => [
                 'doc_documento' => $documento->TituloNumeroDocumento,
                 'ocurrence' => dateBrToEn(explode(" ", $documento->PagamentoData)[0]),
-                'discount' => formatValueToFloat($documento->PagamentoValorDesconto),
-                'value' => formatValueToFloat($documento->PagamentoValorPago),
+                'discount' => formatStringToFloat($documento->PagamentoValorDesconto),
+                'value' => formatStringToFloat($documento->PagamentoValorPago),
                 'others_receipts' => 0.00,
                 'interest_delay' => 0.00,
                 'interest_default' => $juros
@@ -1047,7 +1047,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1056,7 +1056,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1074,7 +1074,7 @@ class Tools
                         'action' => 'removePayed',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'valor' => formatValueToFloat($documento->PagamentoValorAbatimento),
+                            'valor' => formatStringToFloat($documento->PagamentoValorAbatimento),
                         ]
                     ];
                     break;
@@ -1160,7 +1160,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1169,7 +1169,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1224,7 +1224,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1233,7 +1233,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1308,7 +1308,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1317,7 +1317,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1366,7 +1366,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1375,7 +1375,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1440,7 +1440,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1449,7 +1449,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1498,7 +1498,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1507,7 +1507,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1571,7 +1571,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1580,7 +1580,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1628,7 +1628,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1637,7 +1637,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1737,7 +1737,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1746,7 +1746,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1842,7 +1842,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1851,7 +1851,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1911,7 +1911,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1920,7 +1920,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1968,7 +1968,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -1977,7 +1977,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -2039,7 +2039,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -2048,7 +2048,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -2095,7 +2095,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -2104,7 +2104,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -2181,7 +2181,7 @@ class Tools
                         'action' => 'abatementCompleted',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
@@ -2190,7 +2190,7 @@ class Tools
                         'action' => 'abatementCanceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero,
-                            'discount_amount' => formatValueToFloat($documento->PagamentoValorAbatimento)
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
                         ]
                     ];
                     break;
