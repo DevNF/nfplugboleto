@@ -780,17 +780,18 @@ class Tools
 
             //Caso tenha sucesso na requisição busca o resultado pelo protocolo
             if ($dados['body']->_status != 'erro') {
-                /**Espera a impressão ser processada */
-                sleep(1);
                 /**Consulta dez vezes pela impressão */
                 $i = 10;
                 $defaulDecode = $this->getDecode();
                 $this->setDecode(false);
                 //Repetição até que o protocolo tenha sido processado ou até que dê 10 tentativas
                 while ($i > 0) {
+                    /**Espera a impressão ser processada */
+                    sleep(1);
+
                     $pdfContent = $this->get('boletos/impressao/lote/'.$dados['body']->_dados->protocolo, []);
                     //caso não exista a posição _status indica que houve sucesso e o retorno é um PDF, então retorna o mesmo
-                    if (!isset($pdfContent['body']->_status)) {
+                    if (strpos($pdfContent['body'], '_status') === false && strpos($pdfContent['body'], 'erro') === false) {
                         $this->setDecode($defaulDecode);
                         return $pdfContent['body'];
                     }
@@ -798,6 +799,7 @@ class Tools
                     $i--;
                 }
                 $this->setDecode($defaulDecode);
+                $pdfContent['body'] = json_decode($pdfContent['body']);
 
                 //Caso não tenha conseguido processar o PDF a tempo, retorna os erros e mensagens da ultima requisição de protocolo realizada
                 $errors = [];
