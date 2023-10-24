@@ -623,7 +623,7 @@ class Tools
             if (isset($dados['body']->_dados->_falha)) {
                 //Pega os boletos  que não foram salvos
                 $return['errors'] = array_map(function($item) {
-                    if (isset($item->TituloNossoNumero)) {
+                    if (isset($item->TituloNossoNumero) && isset($item->TituloNumeroDocumento)) {
                         return (object) ['TituloNossoNumero' => $item->TituloNossoNumero, 'TituloNumeroDocumento' => $item->TituloNumeroDocumento, 'situacao' => 'FALHA', 'motivo' => json_encode($item->_erros)];
                     } else if (isset($item->_erro) && isset($item->_dados)) {
                         return (object) ['situacao' => 'FALHA', 'motivo' => json_encode($item->_erro->erros)];
