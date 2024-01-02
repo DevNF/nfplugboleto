@@ -736,6 +736,43 @@ class Tools
     }
 
     /**
+     * Baixa os boletos de um cedente no banco e na tecnospeed
+     *
+     * @access public
+     * @return array
+     */
+    public function baixaBoletos(array $dados, array $params = []): array
+    {
+        if (!isset($dados) || empty($dados)) {
+            throw new Exception("É necessário informar o idIntegracao de pelo menos 1 (um) boleto para a baixa", 1);
+        }
+        try {
+            $params = array_filter($params, function($item) {
+                return $item['name'] !== 'limit';
+            }, ARRAY_FILTER_USE_BOTH);
+
+            $params[] = [
+                'name' => 'limit',
+                'value' => 200
+            ];
+
+            $dados = $this->post('boletos/baixa/lote', $dados, $params);
+
+            if ($dados['body']->_status != 'erro') {
+                return $dados;
+            }
+
+            $errors = array_map(function($item) {
+                return $item->_erro;
+            }, $dados['body']->_dados);
+
+            throw new Exception($dados['body']->_mensagem."\r\n".implode("\r\n", $errors), 1);
+        } catch (Exception $error) {
+            throw new Exception($error, 1);
+        }
+    }
+
+    /**
      * Imprime os boletos de um cedente na tecnospeed
      *
      * @param array $dados Array com ids dos boletos, ou contendo a personalização case for tipo 99
