@@ -1753,7 +1753,7 @@ class Tools
                 case '09':
                 case '10':
                     $actions = [
-                        'action' => 'payed',
+                        'action' => 'canceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero
                         ]
@@ -1792,7 +1792,7 @@ class Tools
                     break;
                 case '09':
                     $actions = [
-                        'action' => 'payed',
+                        'action' => 'canceled',
                         'data' => [
                             'number' => $documento->TituloNossoNumero
                         ]
