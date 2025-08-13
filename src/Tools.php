@@ -958,9 +958,27 @@ class Tools
                 $boletos['titulos'][$id['value']] = [];
             }
 
+            $dadosTitulos = $dados['body']->_dados->titulos;
+
+            $params = [[
+                'name' => 'limit',
+                'value' => count($dadosTitulos)
+            ]];
+
             $params = array_merge($params, $ids);
 
             $dados = $this->consultaBoletos($params);
+
+            \Log::driver('return-bank')->debug(
+                'PlugBoleto consultaBoletos no enviaRetorno',
+                [
+                    'tags' => ['enviaRetorno'],
+                    'protocolo' => $protocolo,
+                    'dadosTitulos' => $dadosTitulos,
+                    'params' => $params,
+                    'dados' => $dados['body']
+                ]
+            );
 
             $dados = array_map(function ($item) {
                 return $item;
