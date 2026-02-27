@@ -938,9 +938,28 @@ class Tools
                         }
                     }
                 } else if ($dados['body']->_status == 'erro') {
+                    \Log::driver('return-bank')->debug(
+                        'PlugBoleto status erro no enviaRetorno',
+                        [
+                            'tags' => ['enviaRetornoErro'],
+                            'protocolo' => $protocolo,
+                            'params' => $params,
+                            'dados' => $dados['body']
+                        ]
+                    );
+
                     throw new Exception($dados['body']->_mensagem, 1);
                 }
             } else {
+                \Log::driver('return-bank')->debug(
+                    'PlugBoleto Exception no enviaRetorno',
+                    [
+                        'tags' => ['enviaRetornoException'],
+                        'params' => $params,
+                        'dados' => $dados['body']
+                    ]
+                );
+
                 throw new Exception($dados['body']->_mensagem, 1);
             }
 
