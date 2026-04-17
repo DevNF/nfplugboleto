@@ -215,6 +215,7 @@ class Tools
             'cnpj-sh: '.$this->config['cnpj-sh'],
             'token-sh: '.$this->config['token-sh'],
             'cnpj-cedente: '.$this->config['cnpj-cedente'],
+            'User-Agent: FuganholiFiscal/1.0',
         ];
 
         if (!$this->config['upload']) {
