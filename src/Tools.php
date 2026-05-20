@@ -2317,6 +2317,80 @@ class Tools
     }
 
     /**
+     * Ação responsável por tratar as ocorrencias do arquivo retorno do banco Ailos (085)
+     * Layout suportado: CNAB 240 (Cecred/Ailos). CNAB 400 cai no default.
+     *
+     * @param object $ocorrencia
+     * @param object $documento
+     * @param int    $cnab
+     * @return array
+     */
+    public function banco085($ocorrencia, $documento, $cnab)
+    {
+        $actions = $this->default($documento, $ocorrencia);
+
+        if ($cnab == '240') {
+            switch ($ocorrencia->codigo) {
+                case '02':
+                    $actions = [
+                        'action' => 'confirmed',
+                        'data' => [
+                            'number' => $documento->TituloNossoNumero
+                        ]
+                    ];
+                    break;
+                case '03':
+                    $actions = $this->rejected($documento, $ocorrencia);
+                    break;
+                case '06':
+                case '17':
+                    $actions = $this->payed($documento);
+                    break;
+                case '09':
+                    $actions = [
+                        'action' => 'payed',
+                        'data' => [
+                            'number' => $documento->TituloNossoNumero
+                        ]
+                    ];
+                    break;
+                case '12':
+                    $actions = [
+                        'action' => 'abatementCompleted',
+                        'data' => [
+                            'number' => $documento->TituloNossoNumero,
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
+                        ]
+                    ];
+                    break;
+                case '13':
+                    $actions = [
+                        'action' => 'abatementCanceled',
+                        'data' => [
+                            'number' => $documento->TituloNossoNumero,
+                            'discount_amount' => formatStringToFloat($documento->PagamentoValorAbatimento)
+                        ]
+                    ];
+                    break;
+                case '14':
+                    $actions = [
+                        'action' => 'changeDueDate',
+                        'data' => [
+                            'number' => $documento->TituloNossoNumero,
+                            'data_vencimento' => explode(" ", $documento['TituloDataVencimento'])[0]
+                        ]
+                    ];
+                    break;
+                default:
+                    $actions = $this->default($documento, $ocorrencia);
+                    break;
+            }
+        }
+
+        return $actions;
+    }
+
+    /**
      * Execute a GET Request
      *
      * @param string $path
